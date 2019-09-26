@@ -45,20 +45,21 @@ public class Train {
         return (firstWagon == null);
     }
 
-    /*public boolean isPassengerTrain() {
+    public boolean isPassengerTrain() {
         return firstWagon instanceof PassengerWagon;
-    }*/
+    }
 
-    /*public boolean isFreightTrain() {
+    public boolean isFreightTrain() {
         return firstWagon instanceof FreightWagon;
-    }*/
+    }
 
     public int getPositionOfWagon(int wagonId) {
         // find a wagon on a train by id, return the position (first wagon had position 1)
         // if not found, than return -1
 
         int position = -1;
-        if(this.firstWagon.getWagonId() == wagonId ){
+
+        if(this.firstWagon.getWagonId() == wagonId){
             position = 1;
         } else{
             Wagon current = this.firstWagon;

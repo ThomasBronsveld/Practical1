@@ -23,7 +23,10 @@ public abstract class Wagon {
     public void setNextWagon(Wagon nextWagon) {
         // when setting the next wagon, set this wagon to be previous wagon of next wagon
         this.nextWagon = nextWagon;
-        nextWagon.previousWagon = this;
+
+        if(nextWagon != null){
+            nextWagon.previousWagon = this;
+        }
     }
 
     public Wagon getPreviousWagon() {
