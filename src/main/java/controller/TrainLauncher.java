@@ -5,6 +5,7 @@ import model.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TrainLauncher {
 
     public static void main(String[] args) {
@@ -24,9 +25,9 @@ public class TrainLauncher {
         System.out.println(firstTrain.getPositionOfWagon(3));
         System.out.println(firstTrain.getWagonOnPosition(1).getNextWagon());
 
-        for (Wagon w : wagonList) {
-            Shunter.hookWagonOnTrainRear(firstTrain, w);
-        }
+//        for (Wagon w : wagonList) {
+//            Shunter.hookWagonOnTrainRear(firstTrain, w);
+//        }
         /*
 
         System.out.println(firstTrain);

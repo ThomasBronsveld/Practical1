@@ -6,6 +6,7 @@ public class Shunter {
     /* four helper methods than are used in other methods in this class to do checks */
     private static boolean isSuitableWagon(Train train, Wagon wagon) {
         // trains can only exist of passenger wagons or of freight wagons
+        System.out.println(train.getFirstWagon());
         return true;
     }
 
@@ -30,9 +31,17 @@ public class Shunter {
          find the last wagon of the train
          hook the wagon on the last wagon (see Wagon class)
          adjust number of Wagons of Train */
-
+         if(wagon.getNumberOfWagonsAttached() + 1 > (train.getEngine().getMaxWagons() - train.getNumberOfWagons())){
+             return false;
+         }
+         if (isSuitableWagon(train, wagon)){
+            Wagon last = train.getWagonOnPosition(train.getNumberOfWagons() - 1);
+            last.setNextWagon(wagon);
+            wagon.setPreviousWagon(last);
+            train.resetNumberOfWagons();
+            return true;
+         }
          return false;
-
     }
 
     public static boolean hookWagonOnTrainFront(Train train, Wagon wagon) {
@@ -41,6 +50,8 @@ public class Shunter {
          if Train has no wagons hookOn to Locomotive
          if Train has wagons hookOn to Locomotive and hook firstWagon of Train to lastWagon attached to the wagon
          adjust number of Wagons of Train */
+
+
 
         return false;
 
