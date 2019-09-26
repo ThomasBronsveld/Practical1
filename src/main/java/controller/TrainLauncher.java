@@ -3,6 +3,7 @@ package controller;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -10,7 +11,7 @@ public class TrainLauncher {
 
     public static void main(String[] args) {
 
-        List<Wagon> wagonList = new ArrayList<>();
+        LinkedList<Wagon> wagonList = new LinkedList<>();
         wagonList.add(new PassengerWagon(3, 100));
         wagonList.add(new PassengerWagon(24, 100));
         wagonList.add(new PassengerWagon(17, 140));
@@ -22,8 +23,6 @@ public class TrainLauncher {
         for (Wagon w : wagonList) {
             Shunter.hookWagonOnTrainRear(firstTrain, w);
         }
-
-
         System.out.println(firstTrain);
         Shunter.hookWagonOnTrainFront(firstTrain, new PassengerWagon(21, 140));
         System.out.println(firstTrain);
