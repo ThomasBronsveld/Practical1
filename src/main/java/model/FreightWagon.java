@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Iterator;
+
 /**
  * @Project $(PROJECT_NAME)
  * @Author Thomas Bronsveld <Thomas.Bronsveld@hva.nl>

@@ -19,13 +19,6 @@ public class TrainLauncher {
         Locomotive thomas = new Locomotive(2453, 7);
         Train firstTrain  = new Train(thomas, "Amsterdam", "Haarlem");
 
-//        firstTrain.setFirstWagon(wagonList.get(0));
-//        firstTrain.getFirstWagon().setNextWagon(wagonList.get(1));
-//        firstTrain.resetNumberOfWagons();
-//        System.out.println(firstTrain.getPositionOfWagon(3));
-//        System.out.println(firstTrain.getWagonOnPosition(1).getNextWagon());
-//        Shunter.hookWagonOnWagon(firstTrain.getFirstWagon(), new PassengerWagon(30, 40));
-//        Shunter.hookWagonOnTrainRear(firstTrain, new FreightWagon(50, 50));
         for (Wagon w : wagonList) {
             Shunter.hookWagonOnTrainRear(firstTrain, w);
         }

@@ -1,9 +1,14 @@
 package model;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-public class Train {
+public class Train implements Iterable<Wagon>{
     private Locomotive engine;
     private Wagon firstWagon;
     private String destination;
@@ -28,10 +33,10 @@ public class Train {
        /*  when wagons are hooked to or detached from a train,
          the number of wagons of the train should be reset
          this method does the calculation */
-       if(this.hasNoWagons()){
-           this.numberOfWagons = 0;
-       }
-       this.numberOfWagons = this.getFirstWagon().getNumberOfWagonsAttached() + 1;
+        if (this.hasNoWagons()) {
+            this.numberOfWagons = 0;
+        }
+        this.numberOfWagons = this.getFirstWagon().getNumberOfWagonsAttached() + 1;
     }
 
     public int getNumberOfWagons() {
@@ -59,20 +64,21 @@ public class Train {
 
         int position = -1;
 
-        if(this.firstWagon.getWagonId() == wagonId){
+        if (this.firstWagon.getWagonId() == wagonId) {
             position = 1;
-        } else{
+        } else {
             Wagon current = this.firstWagon;
             int count = 1;
-            while(current.hasNextWagon()){
+            while (current.hasNextWagon()) {
                 count++;
-                if(current.getNextWagon().getWagonId() == wagonId){
+                if (current.getNextWagon().getWagonId() == wagonId) {
                     position = count;
                     break;
-                } else{
+                } else {
                     current = current.getNextWagon();
                 }
             }
+
         }
         return position;
     }
@@ -83,29 +89,30 @@ public class Train {
          position of wagons start at 1 (firstWagon of train)
          use exceptions to handle a position that does not exist */
 
-        if(this.hasNoWagons()){
+        if (this.hasNoWagons()) {
             throw new IndexOutOfBoundsException("This train has no wagons attached");
         }
-        try{
-            if(position == 1){
-                return this.firstWagon;
-            }
-
-            Wagon current = this.firstWagon;
-            int count = 1;
-            while(current.hasNextWagon()){
-                count++;
-                if(count == position){
-                    return current.getNextWagon();
-                } else{
-                    current = current.getNextWagon();
-                }
-            }
-        } catch (IndexOutOfBoundsException indexOutOfBound){
-            //Log indexOutOfBound exception.
+        if (this.numberOfWagons < position) {
             throw new IndexOutOfBoundsException("You've given a position greater than the number of wagons connected to the train");
         }
-       return null;
+
+        if (position == 1) {
+            return this.firstWagon;
+        }
+
+        Wagon current = this.firstWagon;
+        int count = 1;
+        while (current.hasNextWagon()) {
+            count++;
+            if (count == position) {
+                return current.getNextWagon();
+            } else {
+                current = current.getNextWagon();
+            }
+
+        }
+
+        return null;
     }
 
     public int getNumberOfSeats() {
@@ -114,12 +121,12 @@ public class Train {
 
         int numberOfSeats = 0;
 
-        if(this.getFirstWagon() instanceof PassengerWagon){
+        if (this.getFirstWagon() instanceof PassengerWagon) {
 
             Wagon current = this.getFirstWagon();
 
-            while(current != null){
-                PassengerWagon test =  (PassengerWagon) current;
+            while (current != null) {
+                PassengerWagon test = (PassengerWagon) current;
                 numberOfSeats += test.getNumberOfSeats();
                 current = current.getNextWagon();
             }
@@ -132,12 +139,12 @@ public class Train {
          for passenger trains the result should be 0 */
 
         int maxWeight = 0;
-        if(this.getFirstWagon() instanceof FreightWagon){
+        if (this.getFirstWagon() instanceof FreightWagon) {
 
             Wagon current = this.getFirstWagon();
 
-            while(current != null){
-                FreightWagon test =  (FreightWagon) current;
+            while (current != null) {
+                FreightWagon test = (FreightWagon) current;
                 maxWeight += test.getMaxWeight();
                 current = current.getNextWagon();
             }
@@ -161,5 +168,23 @@ public class Train {
         }
         result.append(String.format(" with %d wagons and %d seats from %s to %s", numberOfWagons, getNumberOfSeats(), origin, destination));
         return result.toString();
+    }
+
+    @Override
+    public Iterator<Wagon> iterator() {
+        return new Iterator<Wagon>() {
+
+            Wagon head = firstWagon;
+            @Override
+            public boolean hasNext() {
+                return head.hasNextWagon();
+            }
+
+            @Override
+            public Wagon next() {
+                head = head.getNextWagon();
+                return head;
+            }
+        };
     }
 }

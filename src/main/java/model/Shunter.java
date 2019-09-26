@@ -81,8 +81,6 @@ public class Shunter {
 
             return true;
         }
-
-
         return false;
 
     }
