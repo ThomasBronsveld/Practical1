@@ -5,26 +5,35 @@ public abstract class Wagon {
     private Wagon previousWagon;
     private Wagon nextWagon;
 
-    public Wagon (int wagonId) {
+    public Wagon(int wagonId) {
         this.wagonId = wagonId;
     }
 
+    /**
+     * Getter that finds the last wagon of the row which is attack to this wagon.
+     * If there are no attached wagon, this wagon will be returned
+     */
     public Wagon getLastWagonAttached() {
         // find the last wagon of the row of wagons attached to this wagon
         // if no wagons are attached return this wagon
         Wagon current = this;
 
-        while(current.hasNextWagon()){
+        while (current.hasNextWagon()) {
             current = current.nextWagon;
         }
         return current;
     }
 
+    /**
+     * Setter for this wagon to be the previous wagon of the next wagon
+     *
+     * @param nextWagon the selected wagon to be set.
+     */
     public void setNextWagon(Wagon nextWagon) {
-        // when setting the next wagon, set this wagon to be previous wagon of next wagon
+
         this.nextWagon = nextWagon;
 
-        if(nextWagon != null){
+        if (nextWagon != null) {
             nextWagon.previousWagon = this;
         }
     }
@@ -50,7 +59,7 @@ public abstract class Wagon {
         Wagon current = this;
         int count = 0;
 
-        while(current.hasNextWagon()){
+        while (current.hasNextWagon()) {
             count++;
             current = current.nextWagon;
         }
