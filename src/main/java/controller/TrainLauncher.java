@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -11,7 +10,7 @@ public class TrainLauncher {
 
     public static void main(String[] args) {
 
-        LinkedList<Wagon> wagonList = new LinkedList<>();
+        List<Wagon> wagonList = new ArrayList<>();
         wagonList.add(new PassengerWagon(3, 100));
         wagonList.add(new PassengerWagon(24, 100));
         wagonList.add(new PassengerWagon(17, 140));
