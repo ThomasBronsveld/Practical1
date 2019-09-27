@@ -96,12 +96,13 @@ public class Train implements Iterable<Wagon>{
         }
 
 //        Wagon current = this.firstWagon;
-        int count = 0;
+        int count = 1;
         for (Wagon w: this) {
-            count++;
             if(count == position){
                 return w;
             }
+            count++;
+
         }
 
 //        while (current.hasNextWagon()) {
