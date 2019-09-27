@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Train implements Iterable<Wagon>{
     private Locomotive engine;
@@ -94,18 +95,23 @@ public class Train implements Iterable<Wagon>{
             return this.firstWagon;
         }
 
-        Wagon current = this.firstWagon;
-        int count = 1;
-        while (current.hasNextWagon()) {
+//        Wagon current = this.firstWagon;
+        int count = 0;
+        for (Wagon w: this) {
             count++;
-            if (count == position) {
-                return current.getNextWagon();
-            } else {
-                current = current.getNextWagon();
+            if(count == position){
+                return w;
             }
-
         }
 
+//        while (current.hasNextWagon()) {
+//            count++;
+//            if (count == position) {
+//                return current.getNextWagon();
+//            } else {
+//                current = current.getNextWagon();
+//            }
+//        }
         return null;
     }
 
@@ -137,11 +143,16 @@ public class Train implements Iterable<Wagon>{
 
             Wagon current = this.getFirstWagon();
 
-            while (current != null) {
-                FreightWagon test = (FreightWagon) current;
-                maxWeight += test.getMaxWeight();
-                current = current.getNextWagon();
+            for (Wagon w: this
+                 ) {
+                FreightWagon holder = (FreightWagon) w;
+                maxWeight += holder.getMaxWeight();
             }
+//            while (current != null) {
+//                FreightWagon test = (FreightWagon) current;
+//                maxWeight += test.getMaxWeight();
+//                current = current.getNextWagon();
+//            }
         }
         return maxWeight;
 
@@ -166,18 +177,21 @@ public class Train implements Iterable<Wagon>{
 
     @Override
     public Iterator<Wagon> iterator() {
-        return new Iterator<Wagon>() {
+        return new Iterator<>() {
 
             Wagon head = firstWagon;
+            Wagon current = null;
+
             @Override
             public boolean hasNext() {
-                return head.hasNextWagon();
+                return head != null;
             }
 
             @Override
             public Wagon next() {
+                current = head;
                 head = head.getNextWagon();
-                return head;
+                return current;
             }
         };
     }

@@ -51,7 +51,6 @@ public class Shunter {
      * @param wagon the wagon that will be hooked on the rear of the train.
      */
     public static boolean hookWagonOnTrainRear(Train train, Wagon wagon) {
-
         if (!hasPlaceForWagons(train, wagon)) {
             return false;
         }

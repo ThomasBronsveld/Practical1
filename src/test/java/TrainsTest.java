@@ -140,7 +140,6 @@ public class TrainsTest {
     @Test
     public void moveOneWeightWagon(){
        makeTrains();
-       firstPassengerTrain.getPositionOfWagon(2);
        Shunter.moveOneWagon(firstFreightTrain, secondFreightTrain, fwList.get(2));
        assertEquals(184000, firstFreightTrain.getTotalMaxWeight(), "The weight should be 184000");
        assertEquals(2000, secondFreightTrain.getTotalMaxWeight(), "The weight should be 2000");
